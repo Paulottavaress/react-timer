@@ -3,9 +3,20 @@
 
 // Delete the element when the user clicks on the X button
 
+
+
+document.querySelectorAll('.delete-item').forEach(function(current){
+   current.addEventListener('click', function(e){
+      current.parentElement.remove();
+   });
+});
+
+
+
+
 // Delete all elements when the user clicks on 'clear tasks'
 
-val = document.querySelector('.clear-tasks').addEventListener('click',  
+document.querySelector('.clear-tasks').addEventListener('click',  
 function(e){
     const list = document.querySelector('ul');
      while (list.childElementCount > 0){
@@ -14,7 +25,6 @@ function(e){
      };
 });
 
-console.log(val);
 
 
 
