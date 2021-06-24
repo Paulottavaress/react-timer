@@ -1,11 +1,22 @@
 // Receive and store the value that the user inserts in the 'add task' button
 document.querySelector('input.btn').addEventListener('click',  
 function(e){
-    const taskInput = document.getElementById('task').value;
+    const taskInput = document.getElementById('task');
+    const li = document.createElement('li');
+    const link = document.createElement('a');
+    const taskList = document.querySelector('.collection');
 
-    // Create an element at the end of the list
+    li.className = 'collection-item';
+    li.appendChild(document.createTextNode(taskInput.value));
+    link.className = 'delete-item secondary-content';
+    link.href = '#';
+    link.innerHTML = '<i class="fa fa-remove"></i>';
+    li.appendChild(link);
+    taskList.appendChild(li);
+    taskInput.value = '';
+
+   e.preventDefault();
 });
-
 
 // Create an element that goes on top of all others with what the user inputed inside
 
@@ -13,6 +24,7 @@ function(e){
 document.querySelectorAll('.delete-item').forEach(function(current){
    current.addEventListener('click', function(e){
       current.parentElement.remove();
+      console.log(e);
    });
 });
 
