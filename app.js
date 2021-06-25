@@ -1,10 +1,13 @@
+// Common variables
+const taskList = document.querySelector('.collection');
+const li = document.createElement('li');
+
 // Receive and store the value that the user inserts in the 'add task' button
 document.querySelector('input.btn').addEventListener('click',  
 function(e){
+   console.log('teste');
     const taskInput = document.getElementById('task');
-    const li = document.createElement('li');
     const link = document.createElement('a');
-    const taskList = document.querySelector('.collection');
 
     li.className = 'collection-item';
     li.appendChild(document.createTextNode(taskInput.value));
@@ -18,26 +21,40 @@ function(e){
    e.preventDefault();
 });
 
-// Create an element that goes on top of all others with what the user inputed inside
-
 // Delete the element when the user clicks on the X button
-document.querySelectorAll('.delete-item').forEach(function(current){
-   current.addEventListener('click', function(e){
-      current.parentElement.remove();
-      console.log(e);
+   taskList.addEventListener('click',
+   function(e){
+      if(e.target.parentElement.classList.contains('delete-item')){
+         if(confirm('Are you sure?')) {
+            e.target.parentElement.parentElement.remove();
+         }
+      }
    });
-});
 
 // Delete all elements when the user clicks on 'clear tasks'
 document.querySelector('.clear-tasks').addEventListener('click',  
 function(e){
-    const list = document.querySelector('ul');
-     while (list.childElementCount > 0){
-        
-        list.removeChild(list.firstChild)
+     while (taskList.childElementCount > 0){
+        taskList.removeChild(taskList.firstChild)
      };
 });
 
+// Filter tasks
+document.querySelector('#filter').addEventListener('keyup', 
+function(e){
+   const text = e.target.value.toLowerCase();
 
+   document.querySelectorAll('.collection-item').forEach
+   (function(task){
+      const item = task.firstChild.textContent;
+      if (item.toLowerCase().indexOf(text) != -1){
+         task.style.display = 'block';
+      } else {
+         task.style.display = 'none';
+      }
+   });
+
+   console.log(text);
+});
 
 
